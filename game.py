@@ -1,9 +1,6 @@
 import random
 
 # create hero object
-from random import Random
-
-
 class Hero():
     def __init__(self, lifePoints, damage, dodgeChance, description):
         self.lifePoints = lifePoints
@@ -52,14 +49,14 @@ def fight(character, enemy):
             if(random.randint(0, 99) < enemy.dodgeChance):
                 print("the enemy dodged your attack")
             else:
-                enemy.lifePoints = enemy.lifePoints - character.damage
+                enemy.lifePoints -= character.damage
                 print(f"you hit the enemy with {character.damage} damage. now the enemy got {enemy.lifePoints} lifepoints")
         else:
             if(random.randint(0, 99) < character.dodgeChance):
                 print("you dodged the enemys attack")
             else:
             
-                character.lifePoints = character.lifePoints - enemy.damage
+                character.lifePoints -= enemy.damage
                 print(f"you got hit with {enemy.damage} damage. now you got {character.lifePoints} lifepoints")
         
         if(character.lifePoints < 1):
@@ -71,14 +68,22 @@ print("welcome to your dungeon adventure \n select your gear! insert: \n 1 for l
 character = resolveGear(input())
 print(f"you selectd {character.description}.\nyour stats:\nlifepoints = {character.lifePoints},\ndamage = {character.damage} and\ndodge chance = {character.dodgeChance}")
 
-while(character.lifePoints > 0):
+#run the dungeon
+while(True):
     rooms = 7
     randomEnemyCode = random.randint(0,9)
     enemy = resolveEnemy(randomEnemyCode)
-    print(f"you entered the next room.\n{enemy.description} enemy is appears")
+    print(f"\n\nyou entered the next room.\nthere are {rooms} rooms left in the dungeon\n{enemy.description} enemy is appears")
     fight(character, enemy)
+    
+    # search for healt potions
+    if(random.randint(0, 3) == 0):
+        print("you found a heal potion!\nyour lifepoints increase by 5")
+        character.lifePoints += 5
+    
+    # are there remeining rooms left
     rooms -= 1 
-    if (rooms == 0):
+    if(rooms == 0):
         print("you completed the dungeon!")
         quit()
 
