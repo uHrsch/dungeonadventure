@@ -20,11 +20,11 @@ class Enemy():
 # resolve hero 
 def resolveGear(gearCode):
     if(gearCode == "1"):
-        hero = Hero(20, 3, 15, "light")
+        hero = Hero(20, 3, 20, "light")
     elif(gearCode == "2"):
-        hero = Hero(30, 2, 10, "medium")
+        hero = Hero(30, 2, 15, "medium")
     else:
-        hero = Hero(40, 2, 5, "heavy")
+        hero = Hero(40, 2, 7, "heavy")
     return hero
 
 # resolve enemy
@@ -34,7 +34,7 @@ def resolveEnemy(enemyCode):
     elif(enemyCode > 5 & enemyCode < 8):
         enemy = Enemy(6, 2, 7, "a medium", 3)
     else:
-        enemy = Enemy(9, 3, 10, "a hard", 10)
+        enemy = Enemy(9, 3, 10, "a hard", 5)
     return enemy
 
 # fight logic
@@ -69,8 +69,9 @@ character = resolveGear(input())
 print(f"you selectd {character.description}.\nyour stats:\nlifepoints = {character.lifePoints},\ndamage = {character.damage} and\ndodge chance = {character.dodgeChance}")
 
 #run the dungeon
+rooms = 7
 while(True):
-    rooms = 7
+    
     randomEnemyCode = random.randint(0,9)
     enemy = resolveEnemy(randomEnemyCode)
     print(f"\n\nyou entered the next room.\nthere are {rooms} rooms left in the dungeon\n{enemy.description} enemy is appears")
@@ -78,11 +79,11 @@ while(True):
     
     # search for healt potions
     if(random.randint(0, 3) == 0):
-        print("you found a heal potion!\nyour lifepoints increase by 5")
+        print("\nyou found a heal potion!\nyour lifepoints increase by 5")
         character.lifePoints += 5
     
     # are there remeining rooms left
-    rooms -= 1 
+    rooms = rooms - 1 
     if(rooms == 0):
         print("you completed the dungeon!")
         quit()
